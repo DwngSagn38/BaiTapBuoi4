@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -22,12 +23,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.baitapbuoi4.ui.theme.BaiTapBuoi4Theme
+import org.w3c.dom.Text
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,10 +59,10 @@ fun MessageCard(msg: String) {
             .padding(0.dp, 16.dp)
             .fillMaxWidth(),
         color = Color.DarkGray,
-        fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
         textAlign = TextAlign.Center,
     )
+    TextWithSize(msg,30.sp)
 }
 
 @Preview(showBackground = true)
@@ -84,6 +89,7 @@ fun GreetingCard(msg: String) {
             Text("Say Hi!")
         }
         CounterCard()
+        SelectableText()
     }
 }
 
@@ -103,3 +109,24 @@ fun CounterCard() {
         }
     }
 }
+
+@Composable
+fun TextWithSize(lable : String, size : TextUnit){
+    Text(text = lable.repeat(50),
+        fontSize = size, // kích thước
+        color = Color.Green, // màu
+        fontWeight = FontWeight.Bold, // độ đậm của chữ
+        fontStyle = FontStyle.Italic, // kiểu chữ
+        maxLines = 2, // giới hạn số dòng
+        overflow = TextOverflow.Ellipsis // hiển thị ... khi nội dung quá dài
+    )
+}
+
+// Bật chế độ cho phép copy
+@Composable
+fun SelectableText() {
+    SelectionContainer {
+        Text("This text is selectable")
+    }
+}
+
