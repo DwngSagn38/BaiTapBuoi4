@@ -28,11 +28,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.baitapbuoi4.ui.theme.BaiTapBuoi4Theme
-import org.w3c.dom.Text
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingCard("Lê Đăng Sang - PH42693")
+                    GetlayoutPreview()
                 }
             }
         }
@@ -65,7 +65,6 @@ fun MessageCard(msg: String) {
     TextWithSize(msg,30.sp)
 }
 
-@Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     BaiTapBuoi4Theme {
@@ -127,6 +126,40 @@ fun TextWithSize(lable : String, size : TextUnit){
 fun SelectableText() {
     SelectionContainer {
         Text("This text is selectable")
+    }
+}
+
+@Composable
+fun GetLayout(title:String, innerPadding: Dp){
+    Text(
+        title,
+        modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxWidth(),
+        fontSize = 30.sp,
+        color = Color.Red,
+        textAlign = TextAlign.Center
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GetlayoutPreview(){
+    var count by rememberSaveable {
+        mutableStateOf(0)
+    }
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        GetLayout(title = count.toString(), innerPadding = 10.dp)
+        Button(onClick = { count++
+        }) {
+            Text(text = "Tăng")
+        }
+        Button(onClick = { count--
+        }) {
+            Text(text = "Giảm")
+        }
     }
 }
 
